@@ -16,8 +16,13 @@ class User(models.Model):
     name=models.CharField(max_length=255)
     email=models.EmailField(unique=True)
     password=models.CharField(max_length=255)
-    created_at=models.DateTimeField(auto_now_add=True)
     access_type=models.CharField(max_length=10,choices=ACCESS_TYPE_CHOICES,default=FREE)
+    created_at=models.DateTimeField()
+    modified_at=models.DateTimeField(blank=True,null=True)
+
+    class Meta:
+        db_table='accounts'
+        managed=False
 
     def set_password(self, raw_password):
         self.password=make_password(raw_password)

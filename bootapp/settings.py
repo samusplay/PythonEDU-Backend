@@ -78,10 +78,18 @@ WSGI_APPLICATION = 'bootapp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'softskills',
+        'USER':'root',
+        'PASSWORD':'Kye9743Xs!',
+        'HOST':'localhost',
+        'OPTIONS':{
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },   
     }
 }
+
+
 
 
 # Password validation
@@ -127,4 +135,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #CORS CONFIGURACION EN DESARROLLO
 
-CORS_ALLOW_ALL_ORGINS=True
+CORS_ALLOW_ALL_ORIGINS = True
