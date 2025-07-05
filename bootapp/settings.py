@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -136,3 +137,22 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #CORS CONFIGURACION EN DESARROLLO
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+# Django REST Framework + JWT
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',  # Mientras desarrollamos
+    ),
+}
+
+SIMPLE_JWT = {
+    'USER_ID_FIELD': 'user_id',        # Le dice a SimpleJWT que use tu campo user_id
+    'USER_ID_CLAIM': 'user_id',        # Cómo se incluirá dentro del token
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    # …puedes ajustar más opciones aquí si lo necesitas
+}
+

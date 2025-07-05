@@ -16,13 +16,17 @@ class UserSerializer(serializers.ModelSerializer):
             'password': {'write_only': True},
             'modified_at': {'read_only': True},
         }
+    def validate_email(self,value):
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("El email ya esta registrado.")
+        return value
 
     def create(self, validated_data):
         password = validated_data.pop('password')
         # ya no popeamos modified_at aquí
         user = User(**validated_data)
         user.set_password(password)
-        user.modified_at = now()   # 🔥 Aquí le das un valor válido
+        user.modified_at = now()   # damos un valor valido
         user.save()
         return user
 
